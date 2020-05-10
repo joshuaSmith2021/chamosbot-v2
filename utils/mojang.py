@@ -16,7 +16,7 @@ def get_players_from_uuids(uuids):
     if type(uuids) == ''.__class__:
         uuids = [uuids]
 
-    urls = [f'https://sessionserver.mojang.com/session/minecraft/profile/{uuid}' for uuid in uuids]
+    urls = ['https://sessionserver.mojang.com/session/minecraft/profile/{0}'.format(uuid) for uuid in uuids]
     reqs = (grequests.get(u) for u in urls)
     ress = grequests.map(reqs)
     return [x.json() for x in ress]
@@ -24,6 +24,6 @@ def get_players_from_uuids(uuids):
 
 def get_player_from_uuid(uuid):
     # Gets the player data for a uuid
-    url = f'https://sessionserver.mojang.com/session/minecraft/profile/{uuid}'
+    url = 'https://sessionserver.mojang.com/session/minecraft/profile/{0}'.format(uuid)
     req = requests.get(url)
     return req.json()

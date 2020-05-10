@@ -27,7 +27,7 @@ def get_player_pages(igns):
     if type(igns) == ''.__class__:
         igns = [igns]
 
-    urls = [f'https://plancke.io/hypixel/player/stats/{ign}' for ign in igns]
+    urls = ['https://plancke.io/hypixel/player/stats/{0}'.format(ign) for ign in igns]
     reqs = (grequests.get(u) for u in urls)
     ress = grequests.map(reqs)
     return [x.text for x in ress]
