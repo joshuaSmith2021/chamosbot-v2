@@ -40,9 +40,9 @@ async def get_game_stats(message, bot):
     try:
         api_key = random.choice(json.loads(open('credentials.json').read())['hypixel-api-keys'][str(message.guild.id)])[0]
     except KeyError as err:
-        await message.channel.send('It looks like your server does not have a Hypixel API key connected! Please use command `!addkey` to get connected!')
+        # await message.channel.send('It looks like your server does not have a Hypixel API key connected! Please use command `!addkey` to get connected!')
         log('{0} did not have an API key connected'.format(message.guild))
-        return
+        # return
     except AttributeError as err:
         # Currently just ignoring this error, as the skywars stats and pit stats
         # are not supported
