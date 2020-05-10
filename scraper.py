@@ -87,7 +87,7 @@ def make_bw_table(rows, datasets):
 
         for username, dataset in datasets:
             # An expression with the variables plugged in
-            plugged = re.sub('\^[^^$]+\.[^^$]+\$', lambda x: get_stat(dataset, x[0][1:-1]), stat.split('#')[0])
+            plugged = re.sub('\^[^^$]+\.[^^$]+\$', lambda x: get_stat(dataset, x.group(0)[1:-1]), stat.split('#')[0])
             try:
                 value = format_number(eval(plugged))
             except ZeroDivisionError as err:
