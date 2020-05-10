@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+# Workaround to prevent errors with grequests
+from gevent import monkey as curious_george
+curious_george.patch_all(thread=False, select=False)
+
 import datetime
 import json
 
@@ -55,7 +59,7 @@ class ChamosBot(discord.Client):
             await guild.system_channel.send(to_send)
 
 
-discord_secret = json.loads(open('credentials.json').read())['discord-token'] 
+discord_secret = json.loads(open('credentials.json').read())['discord-token']
 
 client = ChamosBot()
 client.run(discord_secret)

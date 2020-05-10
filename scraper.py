@@ -88,7 +88,16 @@ def make_bw_table(rows, datasets):
         for username, dataset in datasets:
             # An expression with the variables plugged in
             plugged = re.sub('\^[^^$]+\.[^^$]+\$', lambda x: get_stat(dataset, x[0][1:-1]), stat.split('#')[0])
-            value = format_number(eval(plugged))
+            try:
+                value = format_number(eval(plugged))
+            except ZeroDivisionError as err:
+                # This exception occurs when a user has 0 deaths or another
+                # ratio denominator. K/D will raise a ZeroDivisionError
+                value = '-'
+            except SyntaxError as err:
+                # This exception occurs when a user has 0 in a certain stat,
+                # for example 0 kills
+                value = '-'
             # data = dataset
             # for key in stat.split('.'):
             #     data = data[key]

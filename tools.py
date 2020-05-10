@@ -5,8 +5,9 @@ import json
 import datetime
 
 import hypixel
+import stat_classes
 
-discord_secret = json.loads(open('credentials.json').read())['discord-token'] 
+discord_secret = json.loads(open('credentials.json').read())['discord-token']
 website_link = 'https://chamosbotonline.herokuapp.com'
 
 def get_guild(gid, fields=None):
@@ -27,7 +28,7 @@ async def send_help_message(message, bot):
 
 async def get_game_stats(message, bot):
     # await message.channel.send('Sorry, this command is under development at the moment, so this command might not work')
-    
+
     # Message should be !stats [bedwars|skywars|pit] ign ign ign
     games = ['bedwars', 'skywars', 'pit', 'bw', 'sw']
     game_string = 'Oops, looks like the game you asked for is invalid! {0} are available'.format(', '.join(games))
@@ -42,6 +43,10 @@ async def get_game_stats(message, bot):
         await message.channel.send('It looks like your server does not have a Hypixel API key connected! Please use command `!addkey` to get connected!')
         log('{0} did not have an API key connected'.format(message.guild))
         return
+    except AttributeError as err:
+        # Currently just ignoring this error, as the skywars stats and pit stats
+        # are not supported
+        pass
 
     game = parameters[0]
     game_mode = None if flags == [] else flags[-1]
@@ -51,7 +56,7 @@ async def get_game_stats(message, bot):
 
     comparison = None
     if game.lower() in ['bedwars', 'bw']:
-        comparison = str(hypixel.Bedwars(usernames, apikey=api_key, game_mode=game_mode))
+        comparison = str(stat_classes.get_stats(usernames, game_mode=game_mode))
     elif game.lower() in ['skywars', 'sw']:
         comparison = str(hypixel.Skywars(usernames, apikey=api_key, game_mode=game_mode))
     elif  game.lower() == 'pit':

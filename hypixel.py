@@ -382,7 +382,7 @@ if __name__ == '__main__':
             final_data = {}
             for timestamp in dataset:
                 final_data[timestamp.replace('.json', '')] = json.loads(open('{1}/{0}'.format(timestamp, data_directory)).read())
-            
+
             with open('{1}/{0}.json'.format(file_name, data_directory), 'w') as current_file:
                 current_file.write(json.dumps(final_data))
 
