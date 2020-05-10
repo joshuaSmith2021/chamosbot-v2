@@ -5,3 +5,4 @@ logs/
 hypixel-player-data/
 resetTestData
 .git-old/
+env/
