@@ -367,6 +367,7 @@ if __name__ == '__main__':
         hourly_files.sort(reverse=True)
 
         daily_files = list(filter(lambda x: re.match('^[0-9]{8}.json$', x), os.listdir(data_directory)))
+        daily_files.sort(reverse=True)
 
         # Get a list of files from midnight
         midnight_files = filter(lambda x: re.match(r'^[0-9]{8}-0{6}.json$', x), hourly_files)
