@@ -26,10 +26,10 @@ class ChamosBot(discord.Client):
         if message.author.id == self.user.id:
             return
 
-        if message.content.startswith('!stats'):
+        if message.content.startswith('>stats'):
             await tools.get_game_stats(message, self)
 
-        elif message.content.startswith('!link'):
+        elif message.content.startswith('>link'):
             parameters = message.content.split()[1:]
             usernames = parameters
             stats_page = 'http://chamosbotonline.herokuapp.com/bedwars?igns={0}'.format('.'.join(usernames))
@@ -45,7 +45,7 @@ class ChamosBot(discord.Client):
             # Show the user which servers their key is in
             await tools.get_connected_servers(message, self)
 
-        elif message.content.startswith('!help'):
+        elif message.content.startswith('>help'):
             await tools.send_help_message(message, self)
 
         elif message.content.startswith('!sendto'):
